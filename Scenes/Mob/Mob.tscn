@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://art/enemyFlyingAlt_1.png" type="Texture" id=1]
 [ext_resource path="res://art/enemyFlyingAlt_2.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Mob/Mob.gd" type="Script" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -11,11 +12,24 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 22.8072
+height = 2.13068
+
 [node name="Mob" type="RigidBody2D"]
+position = Vector2( -42.8431, -53.3658 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
 animation = "swim"
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 4.07814, 0 )
+rotation = 1.5708
+shape = SubResource( 2 )
