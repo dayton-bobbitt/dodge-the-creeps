@@ -9,7 +9,7 @@ animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "swim",
-"speed": 2.0
+"speed": 3.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
@@ -18,7 +18,8 @@ height = 2.13068
 
 [node name="Mob" type="RigidBody2D"]
 position = Vector2( -42.8431, -53.3658 )
-mode = 1
+collision_mask = 0
+gravity_scale = 0.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
@@ -28,9 +29,13 @@ __meta__ = {
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
 animation = "swim"
-playing = true
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 4.07814, 0 )
 rotation = 1.5708
 shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0.664327, -0.083046 )
+scale = Vector2( 2.86014, 4.64554 )
