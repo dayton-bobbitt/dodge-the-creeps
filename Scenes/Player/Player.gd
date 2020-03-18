@@ -13,27 +13,31 @@ var screen_size: Vector2
 var player_width: int
 var player_height: int
 
+
 func start(starting_position: Vector2):
 	position = starting_position
 	show()
 	$CollisionShape2D.disabled = false
+
 
 func _ready():
 	hide()
 	screen_size = get_viewport_rect().size
 	player_width = $CollisionShape2D.shape.radius
 	player_height = $CollisionShape2D.shape.height / 2 + $CollisionShape2D.shape.radius
-	connect("body_entered", self, "_on_Player_body_entered")
+
 
 func _process(delta: float):
 	var velocity = _get_player_velocity()
 	_move_player(velocity, speed, delta)
 	_animate_player(velocity)
 
-func _on_Player_body_entered():
+
+func _on_Player_body_entered(_body: Node):
 	hide() # hide player after being hit
 	emit_signal("hit")
 	$CollisionShape2D.set_deferred("disabled", true)
+
 
 func _get_player_velocity():
 	# player's movement vector
@@ -53,6 +57,7 @@ func _get_player_velocity():
 	else:
 		return velocity
 
+
 func _move_player(velocity: Vector2, player_speed: int, delta: float):
 	if velocity.length() > 0:
 		var movement = velocity * player_speed
@@ -65,6 +70,7 @@ func _move_player(velocity: Vector2, player_speed: int, delta: float):
 		else:
 			position.x = clamp(position.x, player_height, screen_size.x - player_height)
 			position.y = clamp(position.y, player_height, screen_size.y - player_height)
+
 
 func _animate_player(velocity: Vector2):
 	if velocity.length() == 0:
@@ -86,3 +92,4 @@ func _animate_player(velocity: Vector2):
 			$AnimatedSprite.rotation_degrees = 90 * velocity.x
 
 		$AnimatedSprite.play()
+
